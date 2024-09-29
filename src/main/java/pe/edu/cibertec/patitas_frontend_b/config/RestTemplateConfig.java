@@ -5,13 +5,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.Duration;
+
 @Configuration
 public class RestTemplateConfig {
 
     @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+    public RestTemplate restTemplateAutenticacion(RestTemplateBuilder builder) {
 
-        return builder.build();
+        return builder
+                .rootUri("http://localhost:8082/autenticacion")
+                .setConnectTimeout(Duration.ofSeconds(10)) // timeout de establecimiento de conexion
+                .setReadTimeout(Duration.ofSeconds(10)) // timeout de la lectura de la respuesta
+                .build();
     };
 
 }
